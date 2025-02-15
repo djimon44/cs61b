@@ -85,7 +85,14 @@ public class Model {
      *  Empty spaces are stored as null.
      * */
     public boolean emptySpaceExists() {
-        // TODO: Task 1. Fill in this function.
+        int board_size = this.board.size();
+        for (int x=0; x<board_size; x++) {
+            for (int y=0; y<board_size; y++) {
+                if (tile(x, y) == null) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -95,7 +102,16 @@ public class Model {
      * given a Tile object t, we get its value with t.value().
      */
     public boolean maxTileExists() {
-        // TODO: Task 2. Fill in this function.
+        int board_size = this.board.size();
+        for (int x=0; x<board_size; x++) {
+            for (int y=0; y<board_size; y++) {
+                if (tile(x, y) != null) {
+                    if (tile(x, y).value() == MAX_PIECE) {
+                        return true;
+                    }
+                }
+            }
+        }
         return false;
     }
 
@@ -106,7 +122,53 @@ public class Model {
      * 2. There are two adjacent tiles with the same value.
      */
     public boolean atLeastOneMoveExists() {
-        // TODO: Task 3. Fill in this function.
+        /** At least one empty space exists, so valid move exists*/
+        int board_size = this.board.size();
+
+        if (emptySpaceExists()) {
+            return true;
+        }
+
+        for (int x = 0; x < board_size; x++) {
+            for (int y = 0; y < board_size; y++) {
+                Tile currentTile = tile(x, y);
+                if (currentTile == null) continue; // Skip empty tiles
+
+                int currentValue = currentTile.value();
+
+                // Check left
+                if (x > 0) {
+                    Tile leftTile = tile(x - 1, y);
+                    if (leftTile != null && leftTile.value() == currentValue) {
+                        return true;
+                    }
+                }
+
+                // Check right
+                if (x < board_size - 1) {
+                    Tile rightTile = tile(x + 1, y);
+                    if (rightTile != null && rightTile.value() == currentValue) {
+                        return true;
+                    }
+                }
+
+                // Check down
+                if (y > 0) {
+                    Tile upTile = tile(x, y - 1);
+                    if (upTile != null && upTile.value() == currentValue) {
+                        return true;
+                    }
+                }
+
+                // Check up
+                if (y < board_size - 1) {
+                    Tile downTile = tile(x, y + 1);
+                    if (downTile != null && downTile.value() == currentValue) {
+                        return true;
+                    }
+                }
+            }
+        }
         return false;
     }
 
@@ -129,7 +191,13 @@ public class Model {
         int myValue = currTile.value();
         int targetY = y;
 
-        // TODO: Tasks 5, 6, and 10. Fill in this function.
+        for (int c=y+1; c<board.size(); c++)
+            if (tile(x, c) == null) {
+                targetY = targetY + 1;
+            }
+        if (currTile != null) {
+            board.move(x, targetY, currTile);
+        }
     }
 
     /** Handles the movements of the tilt in column x of board B
