@@ -41,6 +41,8 @@ public interface Deque61B<T> {
      */
     int size();
 
+    int getLength();
+
     /**
      * Remove and return the element at the front of the deque, if it exists.
      *

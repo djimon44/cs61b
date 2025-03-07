@@ -79,4 +79,69 @@ public class ArrayDeque61BTest {
         assertThat(alist2.isEmpty()).isTrue();
     }
 
+    @Test
+    public void removeFirstTest() {
+        Deque61B<String> alist1 = new ArrayDeque61B<>();
+
+        alist1.addLast("Banana");
+        alist1.addLast("Apple");
+        alist1.addLast("Orange");
+
+        alist1.removeFirst();
+        assertThat(alist1.toList()).containsExactly("Apple", "Orange");
+
+        alist1.removeFirst();
+        assertThat(alist1.toList()).containsExactly("Orange");
+    }
+
+    @Test
+    public void removeLastTest() {
+        Deque61B<String> alist1 = new ArrayDeque61B<>();
+
+        alist1.addLast("Banana");
+        alist1.addLast("Apple");
+        alist1.addLast("Orange");
+
+        alist1.removeLast();
+        assertThat(alist1.toList()).containsExactly("Banana", "Apple");
+
+        alist1.removeLast();
+        assertThat(alist1.toList()).containsExactly("Banana");
+    }
+
+    /** Check later
+     * Issue with Testing, potentially in method*/
+    @Test
+    public void resizeTest() {
+        Deque61B<String> alist1 = new ArrayDeque61B<>(64);
+
+        alist1.addLast("Banana");
+        alist1.addLast("Apple");
+        alist1.addLast("Orange");
+        alist1.addLast("Banana");
+        alist1.addLast("Apple");
+        alist1.addLast("Orange");
+        alist1.addLast("Banana");
+        alist1.addLast("Apple");
+        alist1.addLast("Orange");
+        alist1.addLast("Banana");
+        alist1.addLast("Apple");
+        alist1.addLast("Orange");
+
+        alist1.removeLast();
+        assertThat(alist1.getLength()).isEqualTo(8);
+
+        Deque61B<String> alist2 = new ArrayDeque61B<>();
+        alist1.addLast("Banana");
+        alist1.addLast("Apple");
+        alist1.addLast("Orange");
+        alist1.addLast("Papaya");
+        alist1.addLast("Kiwi");
+        alist1.addLast("Melon");
+        alist1.addLast("Pork");
+        alist1.addLast("Grape");
+        alist1.addLast("Mushmula");
+
+        assertThat(alist2.getLength()).isEqualTo(16);
+    }
 }
