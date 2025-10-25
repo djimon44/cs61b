@@ -2,7 +2,7 @@ import org.junit.Test;
 
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 public class UnionFindTest {
 
@@ -86,6 +86,38 @@ public class UnionFindTest {
      * of all methods in your implementation.
      */
 
+    @Test
+    public void unionBySize() {
+        UnionFind uf = new UnionFind(6);
+        //Make one set of 3
+        uf.union(0,1);
+        uf.union(1,2);
+        //Another of size 2
+        uf.union(3,4);
+        //Union these two sets
+        uf.union(2,3);
+
+        int root = uf.find(0);
+        assertEquals(root, uf.find(4));
+        assertEquals(5, uf.sizeOf(0)); // Total size should be 5
+        assertTrue(uf.parent(5) < 0 || uf.parent(5) == 5); // Unrelated elemet
+    }
+
+    @Test
+    public void pathCompression() {
+        UnionFind uf = new UnionFind(6);
+        // Chain
+        uf.union(0,1);
+        uf.union(1,2);
+        uf.union(2,3);
+
+        int initialRoot = uf.find(3);
+
+        int root = uf.find(0);
+        for (int i = 0; i <= 3; i++) {
+            assertEquals(root, uf.find(i));
+        }
+    }
 }
 
 
