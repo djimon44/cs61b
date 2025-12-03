@@ -17,7 +17,9 @@ public class ArraySet<T> implements Iterable<T> {
 
     @Override
     public boolean equals(Object o) {
-        if (o instanceof ArraySet oas)
+        if (o instanceof ArraySet oas) {
+            return true;
+        }
     }
 
     @Override
